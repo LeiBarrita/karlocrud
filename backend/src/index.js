@@ -9,7 +9,7 @@ async function start() {
     app.listen(5000, () => {
       console.log("server has started on port 5000");
     });
-  } catch (error) {
+  } catch (e) {
     console.log("Connection failed");
   }
 }
