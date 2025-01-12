@@ -1,12 +1,14 @@
 import Sequelize from "sequelize";
 import "dotenv/config";
 
+const env = process.env;
+
 export const sequelize = new Sequelize(
-  process.env.DB_TABLE,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  env.DB_NAME,
+  env.DB_USER,
+  env.DB_PASSWORD,
   {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT,
+    host: env.DB_HOST,
+    dialect: env.DB_DIALECT,
   }
 );
