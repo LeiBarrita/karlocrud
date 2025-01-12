@@ -12,14 +12,14 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-  const { username, email, password, verified } = req.body;
+  const { username, email, password, roleId } = req.body;
 
   try {
     const newUser = await User.create({
       username,
       email,
       password,
-      verified,
+      roleId,
     });
 
     res.json(newUser);
