@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   State.init(
     {
-      status: DataTypes.STRING,
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

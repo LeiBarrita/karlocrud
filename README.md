@@ -5,4 +5,5 @@
 
 - Run npm i
 - Update .env
-- run migrations
+- run migrate
+- run seed
