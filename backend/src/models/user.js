@@ -25,11 +25,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate: { isEmail: true },
+        validate: {
+          isEmail: true,
+        },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+        len: {
+          args: [8, Infinity],
+          msg: "La contraseña debe tener almenos 8 caracteres",
+        },
       },
       verified: {
         type: DataTypes.BOOLEAN,
