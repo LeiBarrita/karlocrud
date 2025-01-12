@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "shopId",
         as: "shop",
       });
+
+      Product.belongsToMany(models.Order, {
+        through: "ProductOrders",
+      });
     }
   }
   Product.init(
