@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
         as: "user",
       });
+
+      Order.belongsTo(models.Shop, {
+        foreignKey: "shopId",
+        as: "shop",
+      });
     }
   }
   Order.init(
