@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "stateId",
         as: "state",
       });
+
+      Order.belongsTo(models.User, {
+        foreignKey: "userId",
+        as: "user",
+      });
     }
   }
   Order.init(
