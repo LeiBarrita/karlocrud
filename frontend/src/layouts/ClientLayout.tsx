@@ -8,6 +8,9 @@ const NavBar = () => {
           Inicio
         </Link>
         <div className="flex gap-10">
+          <NavLink className="font-normal text-white" to="/">
+            Cerrar Sesión
+          </NavLink>
           <NavLink className="font-normal text-white" to="/client/orders">
             Ordenes
           </NavLink>
