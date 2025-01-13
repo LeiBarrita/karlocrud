@@ -6,7 +6,8 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Products from "./pages/Products";
-import NavBar from "./layouts/ClientLayout";
+import ClientLayout from "./layouts/ClientLayout";
+import BusinessLayout from "./layouts/BusinessLayout";
 
 function App() {
   return (
@@ -14,13 +15,13 @@ function App() {
       <Route index element={<Login />} />
       <Route path="register" element={<Register />} />
 
-      <Route path="client" element={<NavBar />}>
+      <Route path="client" element={<ClientLayout />}>
         <Route index element={<Home />} />
         <Route path="cart" element={<Cart />} />
         <Route path="orders" element={<Orders />} />
       </Route>
 
-      <Route path="business">
+      <Route path="business" element={<BusinessLayout />}>
         <Route index element={<Products />} />
         <Route path="products" element={<Products />} />
         <Route path="orders" element={<Orders />} />
