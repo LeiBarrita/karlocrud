@@ -99,10 +99,10 @@ exports.findUsers = async (req, res) => {
     const { match } = req.query;
 
     if (!match) {
-      res.status(400).json({ message: "Nombre para busqueda inválido" });
+      res.status(400).json({ message: "Parametro de busqueda inválido" });
     }
 
-    const shops = await User.findAll({
+    const users = await User.findAll({
       where: {
         [Op.or]: [
           { username: { [Op.iLike]: `%${match}%` } },
@@ -111,8 +111,8 @@ exports.findUsers = async (req, res) => {
       },
     });
 
-    // if (!shops) res.sendStatus(404);
-    res.json(shops);
+    // if (!users) res.sendStatus(404);
+    res.json(users);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
@@ -120,7 +120,7 @@ exports.findUsers = async (req, res) => {
   }
 };
 
-exports.findUserById = async (req, res) => {
+exports.activateUser = async (req, res) => {
   try {
     const { id } = req.params;
 

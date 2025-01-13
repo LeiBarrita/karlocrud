@@ -12,6 +12,26 @@ exports.getProduct = async (req, res) => {
   }
 };
 
+exports.getProductByShop = async (req, res) => {
+  try {
+    const { shopId } = req.params;
+
+    if (!shopId) {
+      res.status(400).json({ message: "Negocio invalido" });
+    }
+
+    const products = await Product.findAll({
+      where: { shopId },
+    });
+
+    res.json(products);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 exports.createProduct = async (req, res) => {
   try {
     const { name, quantity, price, available } = req.body;
@@ -73,6 +93,65 @@ exports.deleteProduct = async (req, res) => {
     }
 
     res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.findProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findByPk(id);
+
+    res.json(product);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.findProduct = async (req, res) => {
+  try {
+    const { match } = req.query;
+
+    if (!match) {
+      res.status(400).json({ message: "Parametro de busqueda inválido" });
+    }
+
+    const products = await Product.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${match}%`,
+        },
+      },
+    });
+
+    res.json(products);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.changeQuantity = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { amount } = req.query;
+
+    const product = await Product.findByPk(id);
+
+    if (!product) res.sendStatus(404);
+
+    const newQuantity = product.quantity + amount;
+    product.quantity = newQuantity < 0 ? 0 : newQuantity;
+    product.save()
+
+    res.sendStatus(200);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
