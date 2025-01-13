@@ -26,7 +26,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Order.init(
     {
-      total: DataTypes.FLOAT,
+      total: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        defaultValue: 0,
+        validate: {
+          min: 0,
+          isFloat: true,
+        },
+      },
     },
     {
       sequelize,
