@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 const { Shop } = require("../models");
 
 exports.getShops = async (req, res) => {
@@ -67,6 +67,46 @@ exports.deleteShop = async (req, res) => {
     }
 
     res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.findShopById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const shops = await Shop.findByPk(id);
+
+    // if (!shops) res.sendStatus(404);
+    res.json(shops);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.findShopByName = async (req, res) => {
+  try {
+    const { name } = req.query;
+
+    if (!name) {
+      res.status(400).json({ message: "Nombre para busqueda inválido" });
+    }
+
+    const shops = await Shop.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`,
+        },
+      },
+    });
+
+    // if (!shops) res.sendStatus(404);
+    res.json(shops);
   } catch (error) {
     return res.status(500).json({
       message: error.message,

@@ -7,6 +7,7 @@ router.get("/shops", shopController.getShops);
 router.post("/shops", shopController.createShop);
 router.put("/shops/:id", shopController.updateShop);
 router.delete("/shops/:id", shopController.deleteShop);
-router.get("/shops/:id");
+router.get("/shops/search", shopController.findShopByName);
+router.get("/shops/:id", shopController.findShopById);
 
 module.exports = router;
