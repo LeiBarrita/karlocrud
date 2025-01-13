@@ -14,6 +14,12 @@ const Cart = () => {
         <CartItem />
         <CartItem />
 
+        <div className="self-end text-right">
+          <h3 className="text-xl">Subtotal $ 200.00</h3>
+          <h3 className="text-xl">IVA $ 300.00</h3>
+          <h3 className="text-xl">Total $ 2300.00</h3>
+        </div>
+
         <Button text="Comprar" />
       </div>
     </main>
