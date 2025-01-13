@@ -12,7 +12,7 @@ exports.getProduct = async (req, res) => {
   }
 };
 
-exports.getProductByShop = async (req, res) => {
+exports.getProductsByShop = async (req, res) => {
   try {
     const { shopId } = req.params;
 
@@ -149,7 +149,7 @@ exports.changeQuantity = async (req, res) => {
 
     const newQuantity = product.quantity + amount;
     product.quantity = newQuantity < 0 ? 0 : newQuantity;
-    product.save()
+    product.save();
 
     res.sendStatus(200);
   } catch (error) {

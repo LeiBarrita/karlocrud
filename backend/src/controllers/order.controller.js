@@ -12,6 +12,46 @@ exports.getOrder = async (req, res) => {
   }
 };
 
+exports.getOrdersByShop = async (req, res) => {
+  try {
+    const { shopId } = req.params;
+
+    if (!shopId) {
+      res.status(400).json({ message: "Negocio invalido" });
+    }
+
+    const orders = await Order.findAll({
+      where: { shopId },
+    });
+
+    res.json(orders);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.getOrdersByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "Usuario requerido" });
+    }
+
+    const orders = await Order.findAll({
+      where: { userId },
+    });
+
+    return  res.json(orders);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 exports.createOrder = async (req, res) => {
   try {
     const { shopId, userId, stateId } = req.body;
@@ -29,25 +69,25 @@ exports.createOrder = async (req, res) => {
   }
 };
 
-exports.updateProduct = async (req, res) => {
+exports.updateOrder = async (req, res) => {
   try {
     const { id } = req.params;
     const { shopId, userId, stateId } = req.body;
 
-    const product = await Order.findByPk(id);
+    const order = await Order.findByPk(id);
 
-    if (!product) {
+    if (!order) {
       return res.status(404).json({
         message: "Usuario no encontrado",
       });
     }
 
-    product.shopId = shopId;
-    product.userId = userId;
-    product.stateId = stateId;
-    await product.save();
+    order.shopId = shopId;
+    order.userId = userId;
+    order.stateId = stateId;
+    await order.save();
 
-    res.json(product);
+    res.json(order);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
@@ -55,7 +95,7 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-exports.deleteProduct = async (req, res) => {
+exports.deleteOrder = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedRows = await Order.destroy({
@@ -71,6 +111,75 @@ exports.deleteProduct = async (req, res) => {
     }
 
     res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.updateOrderState = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { stateId } = req.body;
+
+    if (stateId === undefined) {
+      return res.status(400).json({
+        message: "estatus es requerido",
+      });
+    }
+
+    const order = await Order.findByPk(id);
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Orden no encontrada",
+      });
+    }
+
+    order.stateId = stateId;
+    await order.save();
+
+    res.json(order);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.findOrderById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const order = await Order.findByPk(id);
+
+    res.json(order);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.findOrders = async (req, res) => {
+  try {
+    const { match } = req.query;
+
+    if (!match) {
+      res.status(400).json({ message: "Parametro de busqueda inválido" });
+    }
+
+    const orders = await Order.findAll({
+      where: {
+        [Op.or]: [
+          { state: { [Op.iLike]: `%${match}%` } },
+          { total: { [Op.iLike]: `%${match}%` } },
+        ],
+      },
+    });
+
+    res.json(orders);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
