@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 const { Product } = require("../models");
 
 exports.getProduct = async (req, res) => {
@@ -34,12 +34,13 @@ exports.getProductsByShop = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    const { name, quantity, price, available } = req.body;
+    const { name, quantity, price, shopId } = req.body;
     const newProduct = await Product.create({
       name,
       quantity,
       price,
-      available,
+      shopId,
+      available: quantity > 0 ? true : false,
     });
 
     res.json(newProduct);

@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 const { Order } = require("../models");
 
 exports.getOrder = async (req, res) => {
@@ -44,7 +44,7 @@ exports.getOrdersByUser = async (req, res) => {
       where: { userId },
     });
 
-    return  res.json(orders);
+    return res.json(orders);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
@@ -154,7 +154,7 @@ exports.findOrderById = async (req, res) => {
 
     const order = await Order.findByPk(id);
 
-    res.json(order);
+    return res.json(order);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
@@ -173,13 +173,13 @@ exports.findOrders = async (req, res) => {
     const orders = await Order.findAll({
       where: {
         [Op.or]: [
-          { state: { [Op.iLike]: `%${match}%` } },
+          { stateId: { [Op.iLike]: `%${match}%` } },
           { total: { [Op.iLike]: `%${match}%` } },
         ],
       },
     });
 
-    res.json(orders);
+    return res.json(orders);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
