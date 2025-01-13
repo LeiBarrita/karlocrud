@@ -1,4 +1,6 @@
-const ProductCard = () => {
+import { Product } from "../types";
+
+const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div className="bg-white rounded-md min-w-48 h-60 overflow-hidden">
       <img
@@ -8,8 +10,8 @@ const ProductCard = () => {
       />
 
       <div className="p-1 px-2 pb-2 flex flex-col justify-between">
-        <h5>Producto</h5>
-        <small>$ 899.00</small>
+        <h5>{product.name}</h5>
+        <small>$ {product.price}</small>
         <a className="text-sm text-violet-400">agregar al carrito</a>
       </div>
     </div>
