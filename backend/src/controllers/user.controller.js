@@ -119,3 +119,19 @@ exports.findUsers = async (req, res) => {
     });
   }
 };
+
+exports.findUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+    user.verified = true;
+    user.save();
+
+    res.sendStatus(200);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
