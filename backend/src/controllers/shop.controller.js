@@ -78,10 +78,9 @@ exports.findShopById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const shops = await Shop.findByPk(id);
+    const shop = await Shop.findByPk(id);
 
-    // if (!shops) res.sendStatus(404);
-    res.json(shops);
+    res.json(shop);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
@@ -89,18 +88,18 @@ exports.findShopById = async (req, res) => {
   }
 };
 
-exports.findShopByName = async (req, res) => {
+exports.findShops = async (req, res) => {
   try {
-    const { name } = req.query;
+    const { match } = req.query;
 
-    if (!name) {
+    if (!match) {
       res.status(400).json({ message: "Nombre para busqueda inválido" });
     }
 
     const shops = await Shop.findAll({
       where: {
         name: {
-          [Op.iLike]: `%${name}%`,
+          [Op.iLike]: `%${match}%`,
         },
       },
     });

@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 const { User } = require("../models");
 
 exports.getUsers = async (req, res) => {
@@ -38,10 +38,10 @@ exports.updateUser = async (req, res) => {
     const user = await User.findByPk(id);
 
     if (!user) {
-        return res.status(404).json({
-          message: "Usuario no encontrado",
-        });
-      }
+      return res.status(404).json({
+        message: "Usuario no encontrado",
+      });
+    }
 
     user.username = username;
     user.email = email;
@@ -73,6 +73,46 @@ exports.deleteUser = async (req, res) => {
     }
 
     res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.findUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+
+    res.json(user);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.findUsers = async (req, res) => {
+  try {
+    const { match } = req.query;
+
+    if (!match) {
+      res.status(400).json({ message: "Nombre para busqueda inválido" });
+    }
+
+    const shops = await User.findAll({
+      where: {
+        [Op.or]: [
+          { username: { [Op.iLike]: `%${match}%` } },
+          { email: { [Op.iLike]: `%${match}%` } },
+        ],
+      },
+    });
+
+    // if (!shops) res.sendStatus(404);
+    res.json(shops);
   } catch (error) {
     return res.status(500).json({
       message: error.message,
