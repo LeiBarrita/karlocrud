@@ -13,6 +13,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
         as: "orders",
       });
+
+      User.hasOne(models.Shop, {
+        foreignKey: {
+          name: "userId",
+          allowNull: true,
+        },
+        as: "shop",
+      });
     }
   }
   User.init(

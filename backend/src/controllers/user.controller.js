@@ -14,12 +14,13 @@ exports.getUsers = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    const { username, email, password, roleId } = req.body;
+    const { username, email, password, roleId, shopId } = req.body;
     const newUser = await User.create({
       username,
       email,
       password,
       roleId,
+      shopId,
     });
 
     res.json(newUser);
@@ -33,7 +34,7 @@ exports.createUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { username, email, password, roleId } = req.body;
+    const { username, email, password, roleId, shopId } = req.body;
 
     const user = await User.findByPk(id);
 
@@ -47,6 +48,7 @@ exports.updateUser = async (req, res) => {
     user.email = email;
     user.password = password;
     user.roleId = roleId;
+    user.shopId = shopId;
     await user.save();
 
     res.json(user);

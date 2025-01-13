@@ -14,9 +14,10 @@ exports.getShops = async (req, res) => {
 
 exports.createShop = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, userId } = req.body;
     const newShop = await Shop.create({
       name,
+      userId,
     });
 
     res.json(newShop);

@@ -13,6 +13,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "shopId",
         as: "products",
       });
+
+      Shop.belongsTo(models.User, {
+        foreignKey: {
+          name: "userId",
+          allowNull: true,
+        },
+        as: "user",
+      });
     }
   }
   Shop.init(
@@ -20,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
     },
     {
