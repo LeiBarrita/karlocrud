@@ -1,25 +1,112 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    return queryInterface.bulkInsert("Products", [
+      {
+        name: "Rosca de Reyes",
+        quantity: "50",
+        price: "299.50",
+        shopId: "1",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Bolillo",
+        quantity: "20",
+        price: "1.99",
+        shopId: "1",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Pan de Muerto",
+        quantity: "0",
+        price: "18.99",
+        shopId: "1",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Panetone",
+        quantity: "2",
+        price: "499.99",
+        shopId: "1",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Detergente",
+        quantity: "36",
+        price: "39.90",
+        shopId: "2",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Jabon",
+        quantity: "10",
+        price: "12.90",
+        shopId: "2",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Cloro",
+        quantity: "20",
+        price: "32.90",
+        shopId: "2",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Pinol",
+        quantity: "102",
+        price: "20.90",
+        shopId: "2",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Llantas",
+        quantity: "58",
+        price: "379.90",
+        shopId: "3",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Aceite",
+        quantity: "23",
+        price: "89.90",
+        shopId: "3",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Bateria",
+        quantity: "3",
+        price: "699.90",
+        shopId: "3",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+  async down(queryInterface, Sequelize) {
+    return queryInterface.bulkDelete("Products", null, {});
+  },
 };
