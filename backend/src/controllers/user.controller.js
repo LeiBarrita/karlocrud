@@ -156,7 +156,7 @@ exports.loginUser = async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    const isPasswordValid = user.password === password; // Replace with hash comparison if using bcrypt
+    const isPasswordValid = user.password === password;
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }

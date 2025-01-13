@@ -1,12 +1,32 @@
 import { Link, useNavigate } from "react-router";
+import { useState } from "react";
+import useLogin from "../hooks/useLogin";
 import Button from "./Button";
 import Field from "./Field";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login, loading } = useLogin();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const handleLogin = () => {
-    navigate("/client");
+  const handleLogin = async () => {
+    try {
+      const result = await login(email, password);
+      console.log(result);
+      if (result) {
+        const roleId = result.roleId;
+        if (roleId === 2) {
+          navigate("/client");
+        } else if (roleId === 1) {
+          navigate("/business");
+        } else {
+          console.error("Unhandled roleId:", roleId);
+        }
+      }
+    } catch (e) {
+      console.error("Login failed:", e);
+    }
   };
 
   return (
@@ -16,15 +36,26 @@ const Login = () => {
 
         <div className="flex flex-col">
           <small>Email</small>
-          <Field type="text" />
+          <Field
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
 
         <div className="flex flex-col">
           <small>Contraseña</small>
-          <Field type="password" />
+          <Field
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
 
-        <Button text="Ingresar" onClick={handleLogin} />
+        <Button
+          text={loading ? "Ingresando..." : "Ingresar"}
+          onClick={handleLogin}
+        />
         <Link
           to="/register"
           className="text-center text-xs text-black font-thin"
