@@ -37,15 +37,22 @@ The project provides a full-stack web application, where React handles the front
 
 2. Set up the PostgreSQL database:
 
-   - Create a `.env` file with the database credentials:
-     ```
-     DB_NAME=your_database_name
-     DB_USER=your_database_user
-     DB_PASSWORD=your_database_password
-     DB_HOST=localhost
-     DB_DIALECT=postgres
-     DB_PORT=5432
-     ```
+   - Create a `.env` in the `backend` folder with the database credentials:
+
+   ```
+   DB_NAME=your_database_name
+   DB_USER=your_database_user
+   DB_PASSWORD=your_database_password
+   DB_HOST=localhost
+   DB_DIALECT=postgres
+   DB_PORT=5432
+   ```
+
+   - Create a `.env` in the `frontend` folder with the API URL:
+
+   ```
+   VITE_API_URL=http://localhost:5000
+   ```
 
 3. Install backend dependencies:
 
@@ -74,54 +81,54 @@ To make it easier to interact with the app during development or testing, the fo
   - Username: mario
   - Email: mario@mail.com
   - Password: mario1234
-  - Role: User
+  - Role: Client
 
 - **Selena**
 
   - Username: selena
   - Email: selena@mail.com
   - Password: selena1234
-  - Role: User
+  - Role: Client
 
 - **Roy**
 
   - Username: roy
   - Email: roy@mail.com
   - Password: roy1234
-  - Role: User
+  - Role: Client
 
 - **Helena**
 
   - Username: helena
   - Email: helena@mail.com
   - Password: helena1234
-  - Role: User
+  - Role: Client
 
 - **Marco**
 
   - Username: marco
   - Email: marco@mail.com
   - Password: marco1234
-  - Role: Admin
+  - Role: Negocio
 
 - **Miriam**
 
   - Username: miriam
   - Email: miriam@mail.com
   - Password: miriam1234
-  - Role: Admin
+  - Role: Negocio
 
 - **Mely**
 
   - Username: mely
   - Email: mely@mail.com
   - Password: mely1234
-  - Role: Admin
+  - Role: Negocio
 
 - **Sally**
   - Username: sally
   - Email: sally@mail.com
   - Password: sally1234
-  - Role: Admin
+  - Role: Negocio
 
 These users are created via a database migration script, which can be run using Sequelize to seed the `Users` table.
