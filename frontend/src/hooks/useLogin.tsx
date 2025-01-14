@@ -1,20 +1,19 @@
 import { useState } from "react";
-import axios from "axios";
-import { User } from "../types";
+import axios, { AxiosError } from "axios";
+import { ErrorMessage, User } from "../types";
 
 type LoginResponse = {
-  token: string; // Assuming the API returns a token
+  token: string;
   user: User;
 };
 
 const useLogin = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<unknown>(null);
+  const [error, setError] = useState<string | undefined>();
   const [data, setData] = useState<LoginResponse | null>(null);
 
   const login = async (email: string, password: string) => {
     setLoading(true);
-    setError(null);
 
     try {
       const response = await axios.post(
@@ -24,7 +23,9 @@ const useLogin = () => {
       setData(response.data);
       return response.data;
     } catch (e) {
-      setError(e);
+      const error = e as AxiosError<ErrorMessage>;
+      console.log(error);
+      setError(error.response?.data?.message);
     } finally {
       setLoading(false);
     }

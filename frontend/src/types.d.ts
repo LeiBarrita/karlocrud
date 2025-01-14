@@ -1,3 +1,7 @@
+interface ErrorMessage {
+  message: string;
+}
+
 export interface User {
   id: int;
   name: string;

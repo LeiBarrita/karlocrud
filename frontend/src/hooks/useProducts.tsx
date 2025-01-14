@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { ListOfProducts } from "../types";
+import axios, { AxiosError } from "axios";
+import { ErrorMessage, ListOfProducts } from "../types";
 
 const useProducts = (shopId: string) => {
   const [products, setProducts] = useState<ListOfProducts>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<unknown>(null);
+  const [error, setError] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -16,8 +16,9 @@ const useProducts = (shopId: string) => {
         );
         setProducts(response.data);
       } catch (e) {
-        setError(e);
-        console.error("Error fetching products:", e);
+        const error = e as AxiosError<ErrorMessage>;
+        console.log(error);
+        setError(error.response?.data?.message);
       } finally {
         setLoading(false);
       }

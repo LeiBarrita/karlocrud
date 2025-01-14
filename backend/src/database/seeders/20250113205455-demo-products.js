@@ -43,7 +43,7 @@ module.exports = {
       {
         name: "Detergente",
         quantity: "36",
-        price: "39.90",
+        price: "39.99",
         shopId: "2",
         available: true,
         createdAt: new Date(),
@@ -52,7 +52,7 @@ module.exports = {
       {
         name: "Jabon",
         quantity: "10",
-        price: "12.90",
+        price: "12.99",
         shopId: "2",
         available: true,
         createdAt: new Date(),
@@ -61,7 +61,7 @@ module.exports = {
       {
         name: "Cloro",
         quantity: "20",
-        price: "32.90",
+        price: "32.99",
         shopId: "2",
         available: true,
         createdAt: new Date(),
@@ -70,7 +70,7 @@ module.exports = {
       {
         name: "Pinol",
         quantity: "102",
-        price: "20.90",
+        price: "20.99",
         shopId: "2",
         available: true,
         createdAt: new Date(),
@@ -79,7 +79,7 @@ module.exports = {
       {
         name: "Llantas",
         quantity: "58",
-        price: "379.90",
+        price: "379.99",
         shopId: "3",
         available: true,
         createdAt: new Date(),
@@ -88,7 +88,7 @@ module.exports = {
       {
         name: "Aceite",
         quantity: "23",
-        price: "89.90",
+        price: "89.99",
         shopId: "3",
         available: true,
         createdAt: new Date(),
@@ -97,8 +97,17 @@ module.exports = {
       {
         name: "Bateria",
         quantity: "3",
-        price: "699.90",
+        price: "699.99",
         shopId: "3",
+        available: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        name: "Motosierra",
+        quantity: "8",
+        price: "1299.00",
+        shopId: "4",
         available: true,
         createdAt: new Date(),
         updatedAt: new Date(),

@@ -6,7 +6,7 @@ import Field from "./Field";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, loading } = useLogin();
+  const { login, loading, error } = useLogin();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -51,6 +51,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+
+        {error ? <p className="text-red-500">{error}</p> : undefined}
 
         <Button
           text={loading ? "Ingresando..." : "Ingresar"}
